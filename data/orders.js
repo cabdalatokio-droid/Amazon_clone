@@ -133,15 +133,34 @@ document.addEventListener('click', (e) => {
   }, 2000);
 });
 
-  // ✅ Track Package Buttons
-  document.querySelectorAll('.js-track-button').forEach((button) => {
-    button.addEventListener('click', () => {
-      const productId = button.dataset.productId;
-      const orderId = button.dataset.orderId;
-      window.location.href = `tracking.html?orderId=${orderId}&productId=${productId}`;
-    });
+// ✅ Track Package (Improved)
+document.addEventListener('click', (e) => {
+  const button = e.target.closest('.js-track-button');
+  if (!button) return;
+
+  const { productId, orderId } = button.dataset;
+
+  // Validate required data
+  if (!productId || !orderId) {
+    console.warn('Missing productId or orderId');
+    return;
+  }
+
+  // Prevent multiple rapid clicks
+  if (button.disabled) return;
+  button.disabled = true;
+
+  // Optional: small UX feedback
+  button.textContent = 'Tracking...';
+
+  // Safer URL construction
+  const params = new URLSearchParams({
+    orderId,
+    productId
   });
-}
+
+  window.location.href = `tracking.html?${params.toString()}`;
+});
 
 // ✅ Update cart quantity display
 function updateCartQuantity() {
