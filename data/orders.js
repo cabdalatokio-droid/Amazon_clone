@@ -103,23 +103,35 @@ function renderOrders() {
 
   grid.innerHTML = orderHTML;
 
-  // ✅ Buy Again Buttons
-  document.querySelectorAll('.js-pay-again').forEach((button) => {
-    button.addEventListener('click', () => {
-      const productId = button.dataset.productId;
-      addToCart(productId, 1);
-      updateCartQuantity();
+  // ✅ Buy Again (Improved)
+document.addEventListener('click', (e) => {
+  const button = e.target.closest('.js-pay-again');
+  if (!button) return;
 
-      const messageElement = button.querySelector('.buy-again-message');
-      if (!messageElement) return;
+  const { productId } = button.dataset;
+  if (!productId) return;
 
-      const originalText = messageElement.innerHTML;
-      messageElement.innerHTML = 'Added';
-      setTimeout(() => {
-        messageElement.innerHTML = originalText;
-      }, 2000);
-    });
-  });
+  // Prevent rapid double clicks
+  if (button.disabled) return;
+  button.disabled = true;
+
+  addToCart(productId, 1);
+  updateCartQuantity();
+
+  const messageElement = button.querySelector('.buy-again-message');
+  if (!messageElement) {
+    button.disabled = false;
+    return;
+  }
+
+  const originalText = messageElement.textContent;
+  messageElement.textContent = 'Added';
+
+  setTimeout(() => {
+    messageElement.textContent = originalText;
+    button.disabled = false;
+  }, 2000);
+});
 
   // ✅ Track Package Buttons
   document.querySelectorAll('.js-track-button').forEach((button) => {
