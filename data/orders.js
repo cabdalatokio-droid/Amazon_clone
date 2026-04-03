@@ -162,13 +162,27 @@ document.addEventListener('click', (e) => {
   window.location.href = `tracking.html?${params.toString()}`;
 });
 
-// ✅ Update cart quantity display
+// ✅ Update cart quantity display (Improved)
 function updateCartQuantity() {
-  const cartQuantity = cart.reduce((total, item) => total + item.quantity, 0);
-  const cartElem = document.querySelector('.js-cart-order-quantity');
-  if (cartElem) cartElem.textContent = cartQuantity;
-}
+  if (!Array.isArray(cart)) {
+    console.warn('Cart is not defined or not an array');
+    return;
+  }
 
+  const cartQuantity = cart.reduce((total, item) => {
+    const qty = Number(item.quantity) || 0;
+    return total + qty;
+  }, 0);
+
+  // Cache element (better for performance if called often)
+  const cartElem = document.querySelector('.js-cart-order-quantity');
+  if (!cartElem) return;
+
+  // Only update if changed (avoids unnecessary DOM writes)
+  if (cartElem.textContent != cartQuantity) {
+    cartElem.textContent = cartQuantity;
+  }
+}
 
 
 
