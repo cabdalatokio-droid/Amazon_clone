@@ -97,3 +97,14 @@ function renderTrackingPage() {
 
   console.log('----- TRACKING DEBUG END -----');
 }
+
+// ✅ Calculate progress bar %
+function calculateProgress(orderTime, deliveryTime) {
+  const now = dayjs();
+  const start = dayjs(orderTime);
+  const end = dayjs(deliveryTime);
+
+  const percent = ((now - start) / (end - start)) * 100;
+  return Math.min(Math.max(percent, 0), 100);
+}
+
