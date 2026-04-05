@@ -3,6 +3,13 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { orders } from './orders.js';
 import { getProduct, loadProductsFetch } from './products.js';
 import { cart } from './cart.js'; 
+async function loadTrackingPage() {
+  await loadProductsFetch();
+  renderCartQuantity(); 
+  renderTrackingPage();
+}
+
+loadTrackingPage();
 
 function renderTrackingPage() {
   const container = document.querySelector('.js-order-tracking');
