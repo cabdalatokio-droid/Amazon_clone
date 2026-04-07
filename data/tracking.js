@@ -108,3 +108,13 @@ function calculateProgress(orderTime, deliveryTime) {
   return Math.min(Math.max(percent, 0), 100);
 }
 
+
+// ✅ Render "not found" message
+function renderNotFound(container) {
+  container.innerHTML = `
+    <div>
+      Tracking information not found.
+    </div>
+  `;
+}
+
