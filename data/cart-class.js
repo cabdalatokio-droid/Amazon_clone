@@ -79,3 +79,69 @@ const cart=new Cart('cart-oop');
 const businnesCart=new Cart('cart-business');
 console.log(cart);
 console.log(businnesCart);
+
+
+
+
+// waxaan kasoowariday qaybta reac
+
+// import { createSlice } from "@reduxjs/toolkit";
+
+// const initialState = {
+//   products: [], // Will hold objects like: { id, title, price, image, quantity, deliveryOption }
+// };
+
+// const cartSlice = createSlice({
+//   name: "cart",
+//   initialState,
+//   reducers: {
+//     // 1. Add an item to the cart or increment its quantity if it already exists
+//     addToCart: (state, action) => {
+//       const existingProduct = state.products.find(
+//         (item) => item.id === action.payload.id
+//       );
+
+//       if (existingProduct) {
+//         existingProduct.quantity += 1;
+//       } else {
+//         // Spread the payload product and set initial quantity and default delivery
+//         state.products.push({ 
+//           ...action.payload, 
+//           quantity: 1,
+//           deliveryOption: "tuesday" 
+//         });
+//       }
+//     },
+
+//     // 2. Remove an item completely from the cart (Linked to your "Delete" button)
+//     removeFromCart: (state, action) => {
+//       state.products = state.products.filter(
+//         (item) => item.id !== action.payload
+//       );
+//     },
+
+//     // 3. Update quantity manually (Linked to your "Update" button)
+//     updateQuantity: (state, action) => {
+//       const { id, quantity } = action.payload;
+//       const product = state.products.find((item) => item.id === id);
+//       if (product && quantity > 0) {
+//         product.quantity = quantity;
+//       }
+//     },
+
+//     // 4. Update selected shipping speed (Linked to your delivery radio buttons)
+//     updateDeliveryOption: (state, action) => {
+//       const { id, option } = action.payload;
+//       const product = state.products.find((item) => item.id === id);
+//       if (product) {
+//         product.deliveryOption = option;
+//       }
+//     }
+//   }
+// });
+
+// // Export actions to use in your components via useDispatch()
+// export const { addToCart, removeFromCart, updateQuantity, updateDeliveryOption } = cartSlice.actions;
+
+// // Export the reducer to plug into your configureStore
+// export default cartSlice.reducer;
